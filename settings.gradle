@@ -1,0 +1,2 @@
+rootProject.name='Prime Board'
+include ':app'

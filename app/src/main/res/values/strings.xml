@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Prime Board</string>
+    <string name="popup_title">Factors (excluding 1 and %1$d) for %1$d:</string>
+    <string name="popup_no_factors">No Factors</string>
+</resources>
