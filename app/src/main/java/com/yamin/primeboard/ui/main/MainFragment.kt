@@ -34,7 +34,7 @@ class MainFragment : Fragment(), KodeinAware {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModelFactory: ViewModelFactory by instance()
+    private val viewModelFactory: ViewModelFactory by instance<ViewModelFactory>()
     private val viewModel: MainViewModel by viewModels(factoryProducer = { viewModelFactory })
 
     var popupWindow: PopupWindow? = null
