@@ -2,6 +2,7 @@ package com.yamin.primeboard
 
 import com.yamin.primeboard.repo.NumbersDataSourceFactory
 import com.yamin.primeboard.repo.NumbersRepository
+import com.yamin.primeboard.repo.NumbersRepositoryImpl
 import com.yamin.primeboard.ui.ViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
@@ -23,7 +24,7 @@ fun getDependencies() = Kodein.Module("dependencies") {
     }
 
     bind<NumbersRepository>() with singleton {
-        NumbersRepository(
+        NumbersRepositoryImpl(
             dataFactory = instance(),
             fetchExecutor = Executors.newSingleThreadExecutor()
         )

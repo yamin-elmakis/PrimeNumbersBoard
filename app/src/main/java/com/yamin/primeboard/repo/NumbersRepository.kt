@@ -9,11 +9,17 @@ import com.yamin.primeboard.utils.getPrimeFactors
 import io.reactivex.Single
 import java.util.concurrent.Executor
 
-class NumbersRepository(
+interface NumbersRepository{
+    fun getNumberItems(pageSize: Int): LiveData<PagedList<NumberItem>>
+    fun setSelectedNumber(selectedNumber: NumberItem?, initialNumber: Int)
+    fun getFactors(number: Int): Single<Pair<Int, List<Int>>>
+}
+
+class NumbersRepositoryImpl (
     private val dataFactory: NumbersDataSourceFactory,
     private val fetchExecutor: Executor
-) {
-    fun getNumberItems(pageSize: Int): LiveData<PagedList<NumberItem>> {
+) : NumbersRepository {
+    override fun getNumberItems(pageSize: Int): LiveData<PagedList<NumberItem>> {
         return dataFactory.toLiveData(
             fetchExecutor = fetchExecutor,
             config = Config(
@@ -24,11 +30,11 @@ class NumbersRepository(
         )
     }
 
-    fun setSelectedNumber(selectedNumber: NumberItem?, initialNumber: Int) {
+    override fun setSelectedNumber(selectedNumber: NumberItem?, initialNumber: Int) {
         dataFactory.setSelectedNumber(selectedNumber, initialNumber)
     }
 
-    fun getFactors(number: Int): Single<Pair<Int, List<Int>>> {
+    override fun getFactors(number: Int): Single<Pair<Int, List<Int>>> {
         return Single.create { emitter ->
             val factors = number.getPrimeFactors()
             emitter.onSuccess(Pair(number, factors))
